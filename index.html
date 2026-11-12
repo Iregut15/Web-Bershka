@@ -1,11 +1,1634 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi primera página</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>José Miguel Mota | Mujer — Nueva Colección</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f5f5f5;
+      --ink: #0a0a0a;
+      --muted: #6e6e6e;
+      --border: #e5e5e5;
+      --accent: #d9ff00; /* Toque ácido urbano */
+      --sale: #e60023;
+      --header-h: 64px;
+      --promo-h: 32px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--ink);
+      line-height: 1.4;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* TOP PROMO BAR */
+    .promo-bar {
+      height: var(--promo-h);
+      background: var(--ink);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      position: relative;
+      z-index: 60;
+    }
+
+    .promo-bar span {
+      color: var(--accent);
+      margin-left: 6px;
+    }
+
+    /* STICKY HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      height: var(--header-h);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 24px;
+      transition: background 0.25s ease;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .menu-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .gender-tabs {
+      display: flex;
+      gap: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .gender-tabs button {
+      padding: 4px 0;
+      position: relative;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .gender-tabs button.active,
+    .gender-tabs button:hover {
+      color: var(--ink);
+    }
+
+    .gender-tabs button.active::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--ink);
+    }
+
+    /* BRAND LOGO */
+    .brand-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(18px, 2.2vw, 26px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      text-align: center;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 18px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--ink);
+      padding: 4px 2px;
+      width: 170px;
+      transition: width 0.25s ease;
+    }
+
+    .search-box:focus-within {
+      width: 230px;
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 12px;
+      width: 100%;
+      font-family: inherit;
+      color: var(--ink);
+    }
+
+    .search-box input::placeholder {
+      color: var(--muted);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+    }
+
+    .icon-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .cart-badge {
+      background: var(--ink);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      min-width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5px;
+    }
+
+    /* HERO BANNER */
+    .hero {
+      position: relative;
+      height: calc(100vh - var(--header-h) - var(--promo-h));
+      min-height: 540px;
+      max-height: 860px;
+      width: 100%;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .hero img {
+      object-position: center 20%;
+      filter: brightness(0.84);
+      transform: scale(1.01);
+      transition: transform 8s ease;
+    }
+
+    .hero:hover img {
+      transform: scale(1.04);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.25) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 48px 40px;
+      color: #fff;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      width: fit-content;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(36px, 6vw, 76px);
+      font-weight: 700;
+      line-height: 0.96;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      max-width: 820px;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 14px;
+      max-width: 480px;
+      color: rgba(255, 255, 255, 0.88);
+      margin-bottom: 26px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-primary {
+      background: #fff;
+      color: var(--ink);
+      padding: 14px 28px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent);
+      color: var(--ink);
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      color: #fff;
+      padding: 14px 28px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover {
+      background: #fff;
+      color: var(--ink);
+    }
+
+    /* CATEGORY STRIP (CIRCULAR / EDITORIAL PILLS) */
+    .category-strip {
+      padding: 32px 24px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .category-scroll {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      scrollbar-width: none;
+    }
+
+    .category-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-card {
+      flex: 0 0 132px;
+      text-align: center;
+      cursor: pointer;
+      group: true;
+    }
+
+    .cat-thumb {
+      width: 132px;
+      height: 164px;
+      overflow: hidden;
+      background: var(--surface);
+      margin-bottom: 8px;
+      position: relative;
+      border: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .cat-card.active .cat-thumb {
+      border-color: var(--ink);
+    }
+
+    .cat-thumb img {
+      transition: transform 0.4s ease;
+    }
+
+    .cat-card:hover .cat-thumb img {
+      transform: scale(1.06);
+    }
+
+    .cat-card span {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* FILTER & SORT BAR */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      background: #fff;
+    }
+
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      padding: 7px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .pill:hover,
+    .pill.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .toolbar-right select {
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-family: inherit;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    /* PRODUCT GRID (BERSHKA 4-COL DENSE EDITORIAL) */
+    .catalog-section {
+      padding: 24px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px 12px;
+    }
+
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .product-media {
+      position: relative;
+      aspect-ratio: 3 / 4.2;
+      background: var(--surface);
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .product-media img.img-secondary {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .product-card:hover .product-media img.img-secondary {
+      opacity: 1;
+    }
+
+    .badge-stack {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 2;
+    }
+
+    .badge {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .badge.new {
+      background: var(--accent);
+    }
+
+    .badge.sale {
+      background: var(--sale);
+      color: #fff;
+    }
+
+    .wishlist-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 2;
+      width: 30px;
+      height: 30px;
+      background: rgba(255, 255, 255, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: transform 0.2s;
+    }
+
+    .wishlist-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .wishlist-btn.liked {
+      color: var(--sale);
+    }
+
+    /* QUICK ADD OVERLAY */
+    .quick-add {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 10px;
+      transform: translateY(100%);
+      transition: transform 0.25s ease;
+      z-index: 3;
+      border-top: 1px solid var(--border);
+    }
+
+    .product-card:hover .quick-add {
+      transform: translateY(0);
+    }
+
+    .quick-add-title {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .size-row {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .size-btn {
+      min-width: 32px;
+      height: 28px;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      transition: all 0.15s;
+    }
+
+    .size-btn:hover {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 0 2px;
+    }
+
+    .product-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .product-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .product-price {
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .product-price .old-price {
+      text-decoration: line-through;
+      color: var(--muted);
+      font-weight: 400;
+      margin-right: 4px;
+    }
+
+    .product-price .sale-price {
+      color: var(--sale);
+    }
+
+    .swatches {
+      display: flex;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.25);
+    }
+
+    /* EDITORIAL LOOKBOOK BANNER */
+    .editorial-split {
+      margin: 40px 24px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      background: var(--ink);
+      color: #fff;
+      min-height: 520px;
+    }
+
+    .editorial-img {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .editorial-copy {
+      padding: 56px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .editorial-copy .kicker {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .editorial-copy h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(28px, 3.6vw, 48px);
+      line-height: 1.02;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    .editorial-copy p {
+      font-size: 14px;
+      color: #cccccc;
+      max-width: 420px;
+    }
+
+    /* NEWSLETTER & FOOTER */
+    .newsletter {
+      background: var(--surface);
+      padding: 56px 24px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .newsletter h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 26px;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .newsletter p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      max-width: 440px;
+      margin: 0 auto;
+      border: 1px solid var(--ink);
+      background: #fff;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 13px 16px;
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    .newsletter-form button {
+      background: var(--ink);
+      color: #fff;
+      padding: 0 22px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    footer {
+      padding: 48px 24px 28px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+
+    .footer-col h4 {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      color: var(--muted);
+    }
+
+    .footer-col ul a:hover {
+      color: var(--ink);
+      text-decoration: underline;
+    }
+
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* DRAWERS (MENU & CART) */
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 90;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: min(400px, 92vw);
+      background: #fff;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .drawer-left {
+      left: 0;
+      transform: translateX(-100%);
+    }
+
+    .drawer-right {
+      right: 0;
+      transform: translateX(100%);
+    }
+
+    .drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+    }
+
+    .drawer-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .drawer-nav-list button {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      text-align: left;
+      transition: transform 0.2s;
+    }
+
+    .drawer-nav-list button:hover {
+      transform: translateX(6px);
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      gap: 14px;
+      padding-bottom: 18px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cart-item img {
+      aspect-ratio: 3 / 4;
+      background: var(--surface);
+    }
+
+    .cart-item-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .cart-item-title {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .cart-item-meta {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .cart-item-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .qty-box {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--border);
+    }
+
+    .qty-box button {
+      width: 26px;
+      height: 26px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .qty-box span {
+      padding: 0 10px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .drawer-footer {
+      padding: 20px 24px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: var(--ink);
+      color: #fff;
+      padding: 15px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: background 0.2s;
+    }
+
+    .checkout-btn:hover {
+      background: #262626;
+    }
+
+    /* TOAST NOTIFICATION */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--ink);
+      color: #fff;
+      padding: 13px 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      z-index: 120;
+      transform: translateY(120%);
+      opacity: 0;
+      transition: all 0.25s ease;
+      border-left: 4px solid var(--accent);
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .editorial-split {
+        grid-template-columns: 1fr;
+      }
+      .editorial-img {
+        height: 380px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 0 14px;
+      }
+      .gender-tabs,
+      .search-box {
+        display: none;
+      }
+      .hero-overlay {
+        padding: 28px 20px;
+      }
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px 8px;
+      }
+      .catalog-section {
+        padding: 16px 12px;
+      }
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>Hola Mundo</h1>
+
+  <!-- PROMO BAR -->
+  <div class="promo-bar">
+    Envío estándar gratuito en pedidos superiores a 45 € <span>· Nueva Colección FW26</span>
+  </div>
+
+  <!-- STICKY HEADER -->
+  <header>
+    <div class="nav-left">
+      <button class="menu-btn" id="openMenuBtn" aria-label="Abrir menú">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <span>Menú</span>
+      </button>
+      <nav class="gender-tabs" aria-label="Secciones">
+        <button class="active" data-section="mujer">Mujer</button>
+        <button data-section="hombre">Hombre</button>
+        <button data-section="bsk">JMM Teen</button>
+      </nav>
+    </div>
+
+    <a href="#" class="brand-logo" id="resetFiltersLogo">JOSÉ MIGUEL MOTA</a>
+
+    <div class="nav-right">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Buscar prenda..." aria-label="Buscar prenda">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
+      <button class="icon-btn" id="openCartBtn" aria-label="Abrir cesta">
+        <span>Cesta</span>
+        <span class="cart-badge" id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO EDITORIAL -->
+  <section class="hero">
+    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1800&q=85" alt="Campaña Mujer José Miguel Mota">
+    <div class="hero-overlay">
+      <span class="hero-tag">Drop 04 · Urban Tailoring</span>
+      <h1>Streetwear &amp; Nueva Sastrería</h1>
+      <p>Siluetas oversize, denim lavado ácido y prendas efecto piel diseñadas por José Miguel Mota para dominar el asfalto.</p>
+      <div class="hero-actions">
+        <a href="#catalogo" class="btn-primary">Ver colección mujer</a>
+        <button class="btn-outline" id="heroNovedadesBtn">Novedades de la semana</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISUAL CATEGORY STRIP -->
+  <section class="category-strip" aria-label="Categorías destacadas">
+    <div class="category-scroll" id="categoryStrip">
+      <div class="cat-card active" data-cat="todo">
+        <div class="cat-thumb">
+          <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=500&q=80" alt="Todo">
+        </div>
+        <span>Todo</span>
+      </div>
+      <div class="cat-card" data-cat="cazadoras">
+        <div class="cat-thumb">
+          <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=500&q=80" alt="Cazadoras">
+        </div>
+        <span>Cazadoras</span>
+      </div>
+      <div class="cat-card" data-cat="denim">
+        <div class="cat-thumb">
+          <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=500&q=80" alt="Denim">
+        </div>
+        <span>Jeans &amp; Denim</span>
+      </div>
+      <div class="cat-card" data-cat="vestidos">
+        <div class="cat-thumb">
+          <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=500&q=80" alt="Vestidos">
+        </div>
+        <span>Vestidos</span>
+      </div>
+      <div class="cat-card" data-cat="tops">
+        <div class="cat-thumb">
+          <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=500&q=80" alt="Tops y Camisetas">
+        </div>
+        <span>Tops &amp; Bodies</span>
+      </div>
+      <div class="cat-card" data-cat="calzado">
+        <div class="cat-thumb">
+          <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=500&q=80" alt="Calzado">
+        </div>
+        <span>Botas &amp; Sneakers</span>
+      </div>
+      <div class="cat-card" data-cat="accesorios">
+        <div class="cat-thumb">
+          <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Accesorios">
+        </div>
+        <span>Bolsos</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER & SORT TOOLBAR -->
+  <div class="toolbar" id="catalogo">
+    <div class="filter-pills" id="filterPills">
+      <button class="pill active" data-filter="all">Todos los artículos</button>
+      <button class="pill" data-filter="new">New In</button>
+      <button class="pill" data-filter="sale">Special Prices</button>
+    </div>
+
+    <div class="toolbar-right">
+      <span id="productCounter">8 artículos</span>
+      <select id="sortSelect" aria-label="Ordenar por">
+        <option value="featured">Ordenar: Destacados</option>
+        <option value="price-asc">Precio: Menor a Mayor</option>
+        <option value="price-desc">Precio: Mayor a Menor</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- PRODUCT GRID -->
+  <main class="catalog-section">
+    <div class="product-grid" id="productGrid"></div>
+  </main>
+
+  <!-- LOOKBOOK EDITORIAL SPLIT -->
+  <section class="editorial-split">
+    <div class="editorial-img">
+      <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=85" alt="Editorial Night Out José Miguel Mota">
+    </div>
+    <div class="editorial-copy">
+      <span class="kicker">José Miguel Mota Studio</span>
+      <h2>Night Out &amp; Club Capsule</h2>
+      <p>Cortes asimétricos, acabados metalizados y tejidos técnicos pensados para la noche. Ediciones limitadas disponibles exclusivamente online.</p>
+      <div>
+        <button class="btn-primary" id="shopCapsuleBtn">Explorar cápsula</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter">
+    <h3>Únete al Club José Miguel Mota</h3>
+    <p>Suscríbete y obtén un 10 % de descuento en tu primera compra + acceso anticipado a lanzamientos.</p>
+    <form class="newsletter-form" id="newsletterForm">
+      <input type="email" placeholder="Introduce tu e-mail" required>
+      <button type="submit">Suscribirme</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Ayuda</h4>
+        <ul>
+          <li><a href="#">Comprar online</a></li>
+          <li><a href="#">Envíos y plazos</a></li>
+          <li><a href="#">Devoluciones gratuitas</a></li>
+          <li><a href="#">Guía de tallas</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>José Miguel Mota</h4>
+        <ul>
+          <li><a href="#">Sobre la marca</a></li>
+          <li><a href="#">Sostenibilidad · Join Life</a></li>
+          <li><a href="#">Trabaja con nosotros</a></li>
+          <li><a href="#">Localizador de tiendas</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Condiciones de compra</a></li>
+          <li><a href="#">Política de privacidad</a></li>
+          <li><a href="#">Política de cookies</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Síguenos</h4>
+        <ul>
+          <li><a href="#">Instagram · @josemiguelmota</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">Pinterest</a></li>
+          <li><a href="#">Spotify Playlists</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 JOSÉ MIGUEL MOTA. Todos los derechos reservados.</span>
+      <span>España · EUR (€)</span>
+    </div>
+  </footer>
+
+  <!-- BACKDROP -->
+  <div class="backdrop" id="backdrop"></div>
+
+  <!-- LEFT NAVIGATION DRAWER -->
+  <aside class="drawer drawer-left" id="menuDrawer" aria-label="Menú principal">
+    <div class="drawer-header">
+      <span>José Miguel Mota · Mujer</span>
+      <button id="closeMenuBtn" aria-label="Cerrar menú">✕</button>
+    </div>
+    <div class="drawer-body">
+      <ul class="drawer-nav-list">
+        <li><button data-drawer-cat="todo">Novedades</button></li>
+        <li><button data-drawer-cat="cazadoras">Cazadoras y Abrigos</button></li>
+        <li><button data-drawer-cat="denim">Jeans &amp; Denim</button></li>
+        <li><button data-drawer-cat="vestidos">Vestidos y Monos</button></li>
+        <li><button data-drawer-cat="tops">Tops y Camisetas</button></li>
+        <li><button data-drawer-cat="calzado">Zapatos y Botas</button></li>
+        <li><button data-drawer-cat="accesorios">Bolsos y Accesorios</button></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- RIGHT SHOPPING BAG DRAWER -->
+  <aside class="drawer drawer-right" id="cartDrawer" aria-label="Cesta de la compra">
+    <div class="drawer-header">
+      <span>Tu Cesta (<span id="drawerCartCount">0</span>)</span>
+      <button id="closeCartBtn" aria-label="Cerrar cesta">✕</button>
+    </div>
+    <div class="drawer-body" id="cartItemsContainer">
+      <p style="color: var(--muted); font-size: 13px;">Tu cesta está vacía. Añade prendas desde el catálogo.</p>
+    </div>
+    <div class="drawer-footer">
+      <div class="total-row">
+        <span>Total (IVA incl.)</span>
+        <span id="cartTotal">0,00 €</span>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn">Tramitar pedido</button>
+    </div>
+  </aside>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const PRODUCTS = [
+      {
+        id: 1,
+        name: "Cazadora biker efecto piel oversize",
+        category: "cazadoras",
+        price: 49.99,
+        oldPrice: null,
+        isNew: true,
+        colors: ["#111111", "#4a3525"],
+        sizes: ["XS", "S", "M", "L"],
+        img1: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=700&q=80",
+        img2: "https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        id: 2,
+        name: "Jeans wide leg tiro bajo lavado ácido",
+        category: "denim",
+        price: 35.99,
+        oldPrice: null,
+        isNew: true,
+        colors: ["#6c859e", "#1e242b"],
+        sizes: ["34", "36", "38", "40"],
+        img1: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=700&q=80",
+        img2: "https://images.unsplash.com/photo-1582418702059-97ebafb35d09?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        id: 3,
+        name: "Vestido midi drapeado cut-out",
+        category: "vestidos",
+        price: 22.99,
+        oldPrice: 29.99,
+        isNew: false,
+        colors: ["#0a0a0a", "#8b0000"],
+        sizes: ["XS", "S", "M", "L"],
+        img1: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=700&q=80",
+        img2: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        id: 4,
+        name: "Top bandeau asimétrico tejido rib",
+        category: "tops",
+        price: 15.99,
+        oldPrice: null,
+        isNew: true,
+        colors: ["#ffffff", "#0a0a0a", "#d9ff00"],
+        sizes: ["XS", "S", "M"],
+        img1: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=700&q=80",
+        img2: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        id: 5,
+        name: "Botas plataforma track caña alta",
+        category: "calzado",
+        price: 45.99,
+        oldPrice: 59.99,
+        isNew: false,
+        colors: ["#111111"],
+        sizes: ["36", "37", "38", "39", "40"],
+        img1: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80",
+        img2: "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        id: 6,
+        name: "Bolso hombro hebillas metalizadas",
+        category: "accesorios",
+        price: 25.99,
+        oldPrice: null,
+        isNew: true,
+        colors: ["#111111", "#c0c0c0"],
+        sizes: ["Única"],
+        img1: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=700&q=80",
+        img2: "https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        id: 7,
+        name: "Bomber nylon técnico acolchada",
+        category: "cazadoras",
+        price: 39.99,
+        oldPrice: 49.99,
+        isNew: false,
+        colors: ["#2b3326", "#111111"],
+        sizes: ["XS", "S", "M", "L"],
+        img1: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=700&q=80",
+        img2: "https://images.unsplash.com/photo-1544022613-e87ca75a784a?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        id: 8,
+        name: "Jeans cargo multipocket straight",
+        category: "denim",
+        price: 39.99,
+        oldPrice: null,
+        isNew: true,
+        colors: ["#3a3f45", "#8a99a8"],
+        sizes: ["34", "36", "38", "40"],
+        img1: "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?auto=format&fit=crop&w=700&q=80",
+        img2: "https://images.unsplash.com/photo-1604176354204-9268737828e4?auto=format&fit=crop&w=700&q=80"
+      }
+    ];
+
+    // State
+    let state = {
+      category: "todo",
+      filter: "all",
+      search: "",
+      sort: "featured",
+      cart: [],
+      wishlist: new Set()
+    };
+
+    // DOM Elements
+    const productGrid = document.getElementById("productGrid");
+    const productCounter = document.getElementById("productCounter");
+    const searchInput = document.getElementById("searchInput");
+    const sortSelect = document.getElementById("sortSelect");
+    const cartCountEl = document.getElementById("cartCount");
+    const drawerCartCountEl = document.getElementById("drawerCartCount");
+    const cartItemsContainer = document.getElementById("cartItemsContainer");
+    const cartTotalEl = document.getElementById("cartTotal");
+    const toastEl = document.getElementById("toast");
+
+    // Format EUR
+    const formatPrice = (num) => num.toFixed(2).replace(".", ",") + " €";
+
+    // Toast helper
+    let toastTimer;
+    function showToast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2600);
+    }
+
+    // Render Products
+    function renderProducts() {
+      let filtered = PRODUCTS.filter((p) => {
+        const matchCat = state.category === "todo" || p.category === state.category;
+        const matchFilter =
+          state.filter === "all" ||
+          (state.filter === "new" && p.isNew) ||
+          (state.filter === "sale" && p.oldPrice !== null);
+        const matchSearch = p.name.toLowerCase().includes(state.search.toLowerCase());
+        return matchCat && matchFilter && matchSearch;
+      });
+
+      if (state.sort === "price-asc") {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (state.sort === "price-desc") {
+        filtered.sort((a, b) => b.price - a.price);
+      }
+
+      productCounter.textContent = `${filtered.length} artículo${filtered.length === 1 ? "" : "s"}`;
+
+      if (filtered.length === 0) {
+        productGrid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 48px 0; color: var(--muted);">No se encontraron prendas con los filtros seleccionados.</p>`;
+        return;
+      }
+
+      productGrid.innerHTML = filtered
+        .map((p) => {
+          const liked = state.wishlist.has(p.id);
+          return `
+          <article class="product-card">
+            <div class="product-media">
+              <div class="badge-stack">
+                ${p.isNew ? '<span class="badge new">New</span>' : ""}
+                ${p.oldPrice ? '<span class="badge sale">-25%</span>' : ""}
+              </div>
+              <button class="wishlist-btn ${liked ? "liked" : ""}" onclick="toggleWishlist(${p.id})" aria-label="Guardar en favoritos">
+                ${liked ? "♥" : "♡"}
+              </button>
+              <img src="${p.img1}" alt="${p.name}" loading="lazy">
+              <img class="img-secondary" src="${p.img2}" alt="${p.name} vista alternativa" loading="lazy">
+              <div class="quick-add">
+                <div class="quick-add-title">Añadir talla rápida</div>
+                <div class="size-row">
+                  ${p.sizes.map((s) => `<button class="size-btn" onclick="addToCart(${p.id}, '${s}')">${s}</button>`).join("")}
+                </div>
+              </div>
+            </div>
+            <div class="product-info">
+              <div class="product-title-row">
+                <h3 class="product-name">${p.name}</h3>
+                <div class="product-price">
+                  ${p.oldPrice ? `<span class="old-price">${formatPrice(p.oldPrice)}</span><span class="sale-price">${formatPrice(p.price)}</span>` : formatPrice(p.price)}
+                </div>
+              </div>
+              <div class="swatches">
+                ${p.colors.map((c) => `<span class="swatch" style="background:${c}"></span>`).join("")}
+              </div>
+            </div>
+          </article>
+        `;
+        })
+        .join("");
+    }
+
+    // Wishlist
+    window.toggleWishlist = function (id) {
+      if (state.wishlist.has(id)) {
+        state.wishlist.delete(id);
+        showToast("Eliminado de favoritos");
+      } else {
+        state.wishlist.add(id);
+        showToast("Guardado en favoritos");
+      }
+      renderProducts();
+    };
+
+    // Cart Logic
+    window.addToCart = function (productId, size) {
+      const product = PRODUCTS.find((p) => p.id === productId);
+      if (!product) return;
+
+      const existing = state.cart.find((item) => item.id === productId && item.size === size);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        state.cart.push({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          img: product.img1,
+          size,
+          qty: 1
+        });
+      }
+      updateCartUI();
+      showToast(`Añadido: ${product.name} (${size})`);
+    };
+
+    window.changeQty = function (index, delta) {
+      state.cart[index].qty += delta;
+      if (state.cart[index].qty <= 0) {
+        state.cart.splice(index, 1);
+      }
+      updateCartUI();
+    };
+
+    function updateCartUI() {
+      const totalItems = state.cart.reduce((acc, item) => acc + item.qty, 0);
+      const totalPrice = state.cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+
+      cartCountEl.textContent = totalItems;
+      drawerCartCountEl.textContent = totalItems;
+      cartTotalEl.textContent = formatPrice(totalPrice);
+
+      if (state.cart.length === 0) {
+        cartItemsContainer.innerHTML = `<p style="color: var(--muted); font-size: 13px;">Tu cesta está vacía. Añade prendas desde el catálogo.</p>`;
+        return;
+      }
+
+      cartItemsContainer.innerHTML = state.cart
+        .map(
+          (item, idx) => `
+        <div class="cart-item">
+          <img src="${item.img}" alt="${item.name}">
+          <div class="cart-item-details">
+            <div>
+              <div class="cart-item-title">${item.name}</div>
+              <div class="cart-item-meta">Talla: ${item.size}</div>
+            </div>
+            <div class="cart-item-controls">
+              <div class="qty-box">
+                <button onclick="changeQty(${idx}, -1)">−</button>
+                <span>${item.qty}</span>
+                <button onclick="changeQty(${idx}, 1)">+</button>
+              </div>
+              <strong style="font-size:12px;">${formatPrice(item.price * item.qty)}</strong>
+            </div>
+          </div>
+        </div>
+      `
+        )
+        .join("");
+    }
+
+    // Category Strip Clicks
+    document.querySelectorAll(".cat-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        document.querySelectorAll(".cat-card").forEach((c) => c.classList.remove("active"));
+        card.classList.add("active");
+        state.category = card.dataset.cat;
+        renderProducts();
+      });
+    });
+
+    // Filter Pills Clicks
+    document.querySelectorAll("#filterPills .pill").forEach((pill) => {
+      pill.addEventListener("click", () => {
+        document.querySelectorAll("#filterPills .pill").forEach((p) => p.classList.remove("active"));
+        pill.classList.add("active");
+        state.filter = pill.dataset.filter;
+        renderProducts();
+      });
+    });
+
+    // Gender Tabs
+    document.querySelectorAll(".gender-tabs button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".gender-tabs button").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        showToast(`Sección: ${btn.textContent}`);
+      });
+    });
+
+    // Search & Sort
+    searchInput.addEventListener("input", (e) => {
+      state.search = e.target.value;
+      renderProducts();
+    });
+
+    sortSelect.addEventListener("change", (e) => {
+      state.sort = e.target.value;
+      renderProducts();
+    });
+
+    // Hero & Capsule shortcuts
+    document.getElementById("heroNovedadesBtn").addEventListener("click", () => {
+      state.filter = "new";
+      document.querySelectorAll("#filterPills .pill").forEach((p) => {
+        p.classList.toggle("active", p.dataset.filter === "new");
+      });
+      renderProducts();
+      document.getElementById("catalogo").scrollIntoView({ behavior: "smooth" });
+    });
+
+    document.getElementById("shopCapsuleBtn").addEventListener("click", () => {
+      state.category = "vestidos";
+      document.querySelectorAll(".cat-card").forEach((c) => {
+        c.classList.toggle("active", c.dataset.cat === "vestidos");
+      });
+      renderProducts();
+      document.getElementById("catalogo").scrollIntoView({ behavior: "smooth" });
+    });
+
+    document.getElementById("resetFiltersLogo").addEventListener("click", (e) => {
+      e.preventDefault();
+      state.category = "todo";
+      state.filter = "all";
+      state.search = "";
+      searchInput.value = "";
+      document.querySelectorAll(".cat-card").forEach((c) => c.classList.toggle("active", c.dataset.cat === "todo"));
+      document.querySelectorAll("#filterPills .pill").forEach((p) => p.classList.toggle("active", p.dataset.filter === "all"));
+      renderProducts();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Drawers Logic
+    const backdrop = document.getElementById("backdrop");
+    const menuDrawer = document.getElementById("menuDrawer");
+    const cartDrawer = document.getElementById("cartDrawer");
+
+    function closeAllDrawers() {
+      backdrop.classList.remove("open");
+      menuDrawer.classList.remove("open");
+      cartDrawer.classList.remove("open");
+    }
+
+    document.getElementById("openMenuBtn").addEventListener("click", () => {
+      backdrop.classList.add("open");
+      menuDrawer.classList.add("open");
+    });
+
+    document.getElementById("openCartBtn").addEventListener("click", () => {
+      backdrop.classList.add("open");
+      cartDrawer.classList.add("open");
+    });
+
+    document.getElementById("closeMenuBtn").addEventListener("click", closeAllDrawers);
+    document.getElementById("closeCartBtn").addEventListener("click", closeAllDrawers);
+    backdrop.addEventListener("click", closeAllDrawers);
+
+    document.querySelectorAll("[data-drawer-cat]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const cat = btn.dataset.drawerCat;
+        state.category = cat;
+        document.querySelectorAll(".cat-card").forEach((c) => c.classList.toggle("active", c.dataset.cat === cat));
+        renderProducts();
+        closeAllDrawers();
+        document.getElementById("catalogo").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    // Checkout & Newsletter
+    document.getElementById("checkoutBtn").addEventListener("click", () => {
+      if (state.cart.length === 0) {
+        showToast("Tu cesta está vacía");
+        return;
+      }
+      state.cart = [];
+      updateCartUI();
+      closeAllDrawers();
+      showToast("¡Pedido tramitado con éxito! Gracias por comprar en José Miguel Mota.");
+    });
+
+    document.getElementById("newsletterForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      e.target.reset();
+      showToast("¡Suscripción confirmada! Revisa tu bandeja de entrada.");
+    });
+
+    // Initial render
+    renderProducts();
+  </script>
 </body>
 </html>

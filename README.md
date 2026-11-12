@@ -1,3 +1,3 @@
 # Web Bershka 
 ## Web Bershka
-**Profesores** *José Miguel Mota Macías *
+**Profesores** *José Miguel Mota Macías*

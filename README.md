@@ -1,4 +1,3 @@
 # Web Bershka 
-## Hola
-**Hola**
-*Hola*
+## Web Bershka
+**Profesores** *José Miguel Mota Macías *
